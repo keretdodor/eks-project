@@ -1,0 +1,46 @@
+name: Build and Push to ECR
+
+on:
+  push:
+    branches: 
+      - main
+    paths:
+      - 'docker-compose/app/**'
+env:
+  AWS_REGION: us-east-1
+  ECR_REGISTRY: 
+  ECR_REPOSITORY: keretdodor/flask
+  VERSION_PREFIX: 1.0
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Generate version tag
+      id: tag
+      run: |
+        BUILD_NUMBER=$(date +%Y%m%d%H%M%S)
+        echo "IMAGE_TAG=${VERSION_PREFIX}.${BUILD_NUMBER}" >> $GITHUB_ENV
+
+    - name: Build and push Docker image
+      working-directory: docker-compose/app
+      run: |
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.IMAGE_TAG }} .
+        docker tag $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.IMAGE_TAG }} $ECR_REGISTRY/$ECR_REPOSITORY:latest
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.IMAGE_TAG }}
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
