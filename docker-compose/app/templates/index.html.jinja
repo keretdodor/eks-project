@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>People Webpage</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/styles.css">
+</head>
+
+<body>
+    <script>const backend = "{{ backend }}"</script>
+
+    <div id="dbDiv">
+        <h3>DB Host: <span class="{% if db_host %}text-success{% else %}text-danger{% endif %}">{{ db_host }}</span>
+        </h3>
+    </div>
+
+    <div id="personModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2>Add New Person</h2>
+            <form id="addPersonForm">
+                <input type="text" id="firstName" placeholder="First Name" required><br>
+                <input type="text" id="lastName" placeholder="Last Name" required><br>
+                <input type="number" id="age" placeholder="Age" required><br>
+                <input type="text" id="workplace" placeholder="Workplace" required><br>
+                <input type="text" id="address" placeholder="Address" required><br>
+                <button type="submit">Add Person</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="tableContainer">
+        <div class="buttonDiv">
+            {%- if db_host -%}
+            <button class="button" onclick="handleClick()">Add Person</button>
+            {%- else -%}
+            <button class="button" disabled>Add Person</button>
+            {%- endif -%}
+        </div>
+        
+        {% for person in data %}
+        {% if loop.index0 % 3 == 0 %}
+        <div class="container">
+            {% endif %}
+            <div class="{% if db_host %}person{% else %}person-disabled{% endif %}"
+                onclick="handlePersonClick(this, {{ person.id }})">
+                <h3>{{ person.first_name }} {{ person.last_name }}</h3>
+                <p>Age: {{ person.age }}</p>
+                <p>Address: {{ person.address }}</p>
+                <p>Workplace: {{ person.workplace }}</p>
+            </div>
+            {% if loop.index % 3 == 0 or loop.last %}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <script src="../static/scripts.js"></script>
+</body>
+
+</html>

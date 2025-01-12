@@ -1,0 +1,24 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y \
+    pkg-config \
+    default-libmysqlclient-dev \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY . .
+
+RUN pip install -r requirements.txt
+
+EXPOSE 8080
+
+ENV DB_HOST=""
+ENV DB_USER=""
+ENV DB_PASS=""
+ENV DB_NAME=""
+ENV HOSTNAME=""
+ENV BACKEND=""
+
+CMD ["gunicorn", "--workers", "4", "--bind", "0.0.0.0:8080", "--access-logfile", "-", "--error-logfile", "-", "app:app"]
