@@ -16,7 +16,7 @@ backend = environ.get('BACKEND') or "http://localhost"
 
 @app.route("/")
 def main():
-    app.logger.info("Entering main route")
+    app.logger.info("Entering main route!")
     if not health_check():
         global host_name
         host_name = "no_host"
