@@ -235,7 +235,7 @@ I manage external access through an AWS Application Load Balancer, configured vi
 - SSL termination using an ACM certificate
 - Automatic HTTP to HTTPS redirection
 - Health checks on port 8080
-- Public facing access through the domain: develeap.meltachot.site
+- Public facing access through the domain: orpak.meltachot.site
 
 My Ingress configuration leverages the AWS Load Balancer Controller I installed in my EKS cluster during the infrastructure setup phase.
 
@@ -273,7 +273,7 @@ I can monitor my application through:
 - ALB access logs
 - Application logs accessible via:
 ```bash
-kubectl logs -f deployment/develeap-app
+kubectl logs -f deployment/flask-app
 ```
 
 In my regular maintenance, I:
