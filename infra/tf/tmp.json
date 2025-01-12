@@ -1,0 +1,57 @@
+{
+  "apiVersion": "v1",
+  "kind": "Namespace",
+  "metadata": {
+    "creationTimestamp": "2025-01-08T11:45:09Z",
+    "deletionTimestamp": "2025-01-08T13:04:25Z",
+    "labels": {
+      "kubernetes.io/metadata.name": "logging"
+    },
+    "name": "logging",
+    "resourceVersion": "636089",
+    "uid": "a22c7eea-e72b-4432-83ef-b9ca892eb215"
+  },
+  "spec": {
+    "finalizers": []
+  },
+  "status": {
+    "conditions": [
+      {
+        "lastTransitionTime": "2025-01-08T13:04:32Z",
+        "message": "All resources successfully discovered",
+        "reason": "ResourcesDiscovered",
+        "status": "False",
+        "type": "NamespaceDeletionDiscoveryFailure"
+      },
+      {
+        "lastTransitionTime": "2025-01-08T13:04:32Z",
+        "message": "All legacy kube types successfully parsed",
+        "reason": "ParsedGroupVersions",
+        "status": "False",
+        "type": "NamespaceDeletionGroupVersionParsingFailure"
+      },
+      {
+        "lastTransitionTime": "2025-01-08T13:04:32Z",
+        "message": "Failed to delete all resource types, 1 remaining: unexpected items still remain in namespace: logging for gvr: /v1, Resource=pods",
+        "reason": "ContentDeletionFailed",
+        "status": "True",
+        "type": "NamespaceDeletionContentFailure"
+      },
+      {
+        "lastTransitionTime": "2025-01-08T13:04:32Z",
+        "message": "Some resources are remaining: persistentvolumeclaims. has 2 resource instances, pods. has 2 resource instances",
+        "reason": "SomeResourcesRemain",
+        "status": "True",
+        "type": "NamespaceContentRemaining"
+      },
+      {
+        "lastTransitionTime": "2025-01-08T13:04:32Z",
+        "message": "Some content in the namespace has finalizers remaining: kubernetes.io/pvc-protection in 2 resource instances",
+        "reason": "SomeFinalizersRemain",
+        "status": "True",
+        "type": "NamespaceFinalizersRemaining"
+      }
+    ],
+    "phase": "Terminating"
+  }
+}

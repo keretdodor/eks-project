@@ -1,0 +1,6 @@
+apiVersion: v2
+name: flask-app
+description: a helm chart for the flask application
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

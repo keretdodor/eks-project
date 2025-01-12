@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.name }}
+spec:
+  replicas: {{ .Values.app.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.name }}
+    spec:
+      containers:
+      - name: {{ .Values.app.name }}
+        image: "{{ .Values.app.image.repository }}:{{ .Values.app.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.app.containerPort }}
+        
+        resources:
+          requests:
+            memory: {{ .Values.app.resources.requests.memory }}
+            cpu: {{ .Values.app.resources.requests.cpu }}
+          limits:
+            memory: {{ .Values.app.resources.limits.memory }}
+            cpu: {{ .Values.app.resources.limits.cpu }}
+        
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.app.probe.liveness.path }}
+            port: {{ .Values.app.probe.liveness.port }}
+          initialDelaySeconds: {{ .Values.app.probe.liveness.initialDelaySeconds }}
+          periodSeconds: {{ .Values.app.probe.liveness.periodSeconds }}
+        
+        env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.configMap.name }}
+              key: DB_HOST
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.name }}
+              key: username
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.secret.name }}
+              key: password
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.configMap.name }}
+              key: DB_NAME
+        - name: BACKEND
+          valueFrom:
+            configMapKeyRef:
+              name: {{ .Values.configMap.name }}
+              key: BACKEND
