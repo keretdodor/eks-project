@@ -8,7 +8,7 @@ on:
       - 'docker-compose/app/**'
 env:
   AWS_REGION: us-east-1
-  ECR_REGISTRY: 
+  ECR_REGISTRY: 851725559197.dkr.ecr.us-east-1.amazonaws.com
   ECR_REPOSITORY: keretdodor/flask
   VERSION_PREFIX: 1.0
   
