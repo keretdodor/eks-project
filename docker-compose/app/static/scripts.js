@@ -25,7 +25,7 @@ function handlePersonClick(div, id) {
                 }
             }
         } else if (res.status === 404) {
-            alert("Person not found!");
+            alert("Person not found");
         } else {
             alert("Error deleting person");
         }
