@@ -7,7 +7,10 @@ locals {
   eks_key_public               = "/home/keretdodor/Desktop/eks-project/extras/eks.pub"
   init_runner_key_private      = "/home/keretdodor/Desktop/eks-project/extras/init_runner_key.pem"
   init_runner_key_public       = "/home/keretdodor/Desktop/eks-project/extras/init_runner_key.pub"
-  db_user                      = "admin"
-  db_pass                      = "adminadmin"
+  db_user                      = 
+  db_pass                      =
+  aws_lbc     = "/home/keretdodor/Desktop/eks-project/eks-flask-project/infra/tf/modules/eks/aws_lb_controller_iam.json"
+  init_script = "/home/keretdodor/Desktop/eks-project/eks-flask-project/infra/tf/modules/rds/rds-init.sh"
+
 }
 

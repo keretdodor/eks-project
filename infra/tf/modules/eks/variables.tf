@@ -42,3 +42,8 @@ variable "region" {
   type        = string
   description = "The full alias record"
 }
+
+variable "aws_lbc_path" {
+  description = "Path to AWS Load Balancer Controller IAM policy"
+  type        = string
+}

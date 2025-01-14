@@ -53,6 +53,7 @@ module "eks" {
      vpc_id                  = module.network.vpc_id
      eks_key_private         = local.eks_key_private
      eks_key_public          = local.eks_key_public
+     aws_lbc_path            = local.aws_lbc
    
 }
 
@@ -68,4 +69,5 @@ module "rds" {
     db_user               = local.db_user
     db_pass               = local.db_pass
     vpc_id                = module.network.vpc_id
+    init_script_path      = local.init_script
 }            

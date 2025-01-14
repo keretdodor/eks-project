@@ -9,7 +9,7 @@ resource "aws_s3_bucket" "init_bucket" {
 resource "aws_s3_object" "init_sql" {
   bucket = aws_s3_bucket.init_bucket.id
   key    = "init.sql"
-  source = "/home/keretdodor/Desktop/eks-project/eks-flask-project/docker-compose/mysql/init.sql"
+  source = file(var.init_script_path)
   acl    = "private"
 }
 ######################################################################

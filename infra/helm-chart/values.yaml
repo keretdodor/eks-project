@@ -55,8 +55,8 @@ configMap:
 secret:
   name: db-credentials
   data:
-    username: YWRtaW4=
-    password: YWRtaW5hZG1pbg==
+    username: 
+    password: 
 
 # HPA configuration    
 autoscaling:

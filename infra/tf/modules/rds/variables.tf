@@ -37,3 +37,8 @@ variable "init_runner_private" {
   type        = string
   description = "init_runner"
 }
+
+variable "init_script_path" {
+  description = "Path to initialization script"
+  type        = string
+}

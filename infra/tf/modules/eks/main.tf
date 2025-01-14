@@ -239,7 +239,7 @@ resource "aws_iam_role" "aws_lbc" {
 }
 
 resource "aws_iam_policy" "aws_lbc" {
-  policy = file("/home/keretdodor/Desktop/eks-project/eks-flask-project/infra/tf/modules/eks/aws_lb_controller_iam.json")
+  policy = file(var.aws_lbc_path)
   name   = "AWSLoadBalancerController"
 }
 
